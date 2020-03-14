@@ -47,8 +47,11 @@ class Map:
 
 
 def main():
-    string1 = sys.argv[1]
-    string2 = sys.argv[2]
+    try:
+        string1 = sys.argv[1]
+        string2 = sys.argv[2]
+    except IndexError:
+        print("You entered the wrong amount of arguments")
     m = Map()
     print(m.run(string1, string2))
 
