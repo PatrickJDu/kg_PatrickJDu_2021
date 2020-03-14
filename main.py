@@ -52,6 +52,7 @@ def main():
         string2 = sys.argv[2]
     except IndexError:
         print("You entered the wrong amount of arguments")
+        exit(1)
     m = Map()
     print(m.run(string1, string2))
 
