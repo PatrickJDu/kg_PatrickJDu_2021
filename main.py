@@ -2,10 +2,10 @@ import sys
 
 
 class Map:
-    map_set = None
+    map_char = None
 
     def __init__(self):
-        self.map_set = set()
+        self.map_char = {}
 
     @staticmethod
     def initial_check(str1, str2):
@@ -20,18 +20,22 @@ class Map:
             return False
         return True
 
-    def create_set(self, str1, str2):
+    def create_map(self, str1, str2):
         """
-        This replaces the need for if/else statements like the dictionary to store. Again we only care about the
-        uniqueness of string1. For example if string1 = foo and string2 = bar it would false because foo has 2 o's.
-        A set would catch if string1 has multiple of the same characters
-        O(n) time complexity and O(n) space complexity
+        Dictionary contains instances where string1 is foo and string2 is baa. While o cannot have multiple values
+        attached to it, it can have a singular repeating one.
         :param str1: Initial string1 passed from command line
-        :param str2 Initial string2 passed from command line
+        :param str2: Initial string2 passed from command line
         :return: True or False
         """
-        self.map_set = {char for char in str1}
-        return True if len(self.map_set) == len(str2) else False
+        for pos, value in enumerate(str1):
+            if value not in self.map_char:
+                self.map_char[value] = str2[pos]
+            else:
+                if self.map_char[value] == str2[pos]:
+                    continue
+                return False
+        return True
 
     def run(self, str1, str2):
         """
@@ -40,7 +44,7 @@ class Map:
         :param str2: Initial string2 passed from command line
         :return: String version of True or False
         """
-        if not (self.initial_check(str1, str2) and self.create_set(str1, str2)):
+        if not (self.initial_check(str1, str2) and self.create_map(str1, str2)):
             return "false"
         return "true"
 
